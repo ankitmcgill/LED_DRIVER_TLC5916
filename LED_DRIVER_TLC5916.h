@@ -19,6 +19,7 @@
 #include <osapi.h>
 #include <ets_sys.h>
 #include <gpio.h>
+#include "ESP8266_GPIO.h"
 
 //END USER DEFINABLE LIBRARY PARAMETERS/////////////////
 #define LED_DRIVER_TLC5916_GPIO_SDI		(5)
@@ -30,10 +31,10 @@
 #define LED_DRIVER_TLC5916_CLK_DELAY_MS		(100)
 #define LED_DRIVER_TLC5916_HAS_OE_CONTROL	(0)
 
-//INTERNAL FUNCTIONS/////////////////
-static GPIO_HIGH(uint8_t gpio_num);
-static GPIO_LOW(uint8_t gpio_num);
-static SYS_DELAY_MS(uint16_t delay_val);
+//USER DEFINABLE
+//FUNCTION POINTERS FOR GPIO OPERATIONS & SYSTEM DELAY///////////////////
+static void (*TLC5916_GPIO_SET)(uint8_t, uint8_t) = ESP8266_GPIO_Set_Value;
+static void (*TLC5916_SYS_DELAY_US)(uint32_t) = ESP8266_GPIO_Sys_Delay_Us;
 
 void LED_DRIVER_TLC5916_Init(void);
 void LED_DRIVER_TLC5916_Turn_On(void);
